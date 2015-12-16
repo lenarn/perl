@@ -1,0 +1,14 @@
+for (0 ..$#{$dates{$step}}){
+	 	my $pid = fork();
+		unless ($pid){
+			$dbc->_set_connect_attribute(InactiveDestroy => 1);	
+			sleep(1);
+			print "step $step $_\n";
+			test($dates{$step}->[$_]);
+			print "end child process...\n";
+			exit;
+		}
+		else {
+			$pids{$dates{$step}->[$_]} = $pid;
+		}
+	} 
